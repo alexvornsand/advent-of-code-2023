@@ -14,7 +14,8 @@ The engine schematic (your puzzle input) consists of a visual representation of 
 
 Here is an example engine schematic:
 
-```467..114..
+```
+467..114..
 ...*......
 ..35..633.
 ......#...
@@ -44,7 +45,8 @@ This time, you need to find the gear ratio of every gear and add them all up so 
 
 Consider the same engine schematic again:
 
-```467..114..
+```
+467..114..
 ...*......
 ..35..633.
 ......#...
