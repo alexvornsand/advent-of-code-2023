@@ -5,3 +5,4 @@ A place for me to attempt 2023's [Advent of Code](https://adventofcode.com/2023/
 
 [Day 2 (Python)](/solutions/day-02)
 
+[Day 3 (Python)](/solutions/day-03)
