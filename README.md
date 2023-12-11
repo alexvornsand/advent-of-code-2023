@@ -21,9 +21,9 @@ A place for me to attempt 2023's [Advent of Code](https://adventofcode.com/2023/
 
 [Day 10 (Python)](/solutions/day-10)
 
-<!-- [Day 11 (Python)](/solutions/day-11)
+[Day 11 (Python)](/solutions/day-11)
 
-[Day 12 (Python)](/solutions/day-12)
+<!-- [Day 12 (Python)](/solutions/day-12)
 
 [Day 13 (Python)](/solutions/day-13)
 
