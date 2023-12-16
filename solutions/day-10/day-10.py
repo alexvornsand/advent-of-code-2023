@@ -38,58 +38,15 @@ class Labyrinth:
             image += '\n'
         print(image)
 
+    def checkInterior(self, coord):
+        x, y = coord
+        right_neighbors = ''.join([self.map[(c, y)] for c in range(x, max([coord[0] for coord in self.map]) + 1) if self.map[(c, y)] in ['F', 'J', 'L', '7', '|']])
+        right_neighbors = right_neighbors.replace('F7', '').replace('LJ', '')
+        return (right_neighbors.count('|') + right_neighbors.count('7') + right_neighbors.count('J')) % 2 == 1
+
     def countInnerTiles(self):
-        bridges = [tuple([(y + x) / 2 for y, x in zip(self.loop[i], self.loop[i + 1])]) for i in range(len(self.loop) - 1)]
-        double_scale_loop = [tuple([c * 2 for c in coord]) for coord in self.loop + bridges]
-        double_x_min = min([coord[0] for coord in double_scale_loop]) - 1
-        double_x_max = max([coord[0] for coord in double_scale_loop]) + 1
-        double_y_min = min([coord[1] for coord in double_scale_loop]) - 1
-        double_y_max = max([coord[1] for coord in double_scale_loop]) + 1
-        double_scale_exterior_tiles = []
-        start = (double_x_min, double_y_min)
-        x, y = start
-        current_node = start
-        queue = [
-            neighbor 
-            for neighbor 
-            in [(x - 1, y), (x + 1, y), (x, y - 1), (x, y + 1)] 
-            if 
-                neighbor not in double_scale_exterior_tiles 
-                    and neighbor not in double_scale_loop 
-                    and neighbor[0] in range(double_x_min, double_x_max + 1) 
-                    and neighbor[1] in range(double_y_min, double_y_max + 1)
-        ]
-        while len(queue) > 0:
-            double_scale_exterior_tiles.append(current_node)
-            current_node = queue[0]
-            x, y = current_node
-            queue.pop(0)
-            queue += [
-                neighbor 
-                for neighbor 
-                in [(x - 1, y), (x + 1, y), (x, y - 1), (x, y + 1)] 
-                if 
-                    neighbor not in double_scale_exterior_tiles 
-                        and neighbor not in queue 
-                        and neighbor not in double_scale_loop 
-                        and neighbor[0] in range(double_x_min, double_x_max + 1) 
-                        and neighbor[1] in range(double_y_min, double_y_max + 1)
-            ]
-        x_min = min([coord[0] for coord in self.loop])
-        x_max = max([coord[0] for coord in self.loop])
-        y_min = min([coord[1] for coord in self.loop])
-        y_max = max([coord[1] for coord in self.loop])
-        exterior_tiles = [
-            (tile[0] / 2, tile[1] / 2) 
-            for tile 
-            in double_scale_exterior_tiles 
-            if 
-                tile[0] % 2 == 0 
-                    and tile[1] % 2 == 0
-                    and int(tile[0] / 2) in range(x_min, x_max + 1)
-                    and int(tile[1] / 2) in range(y_min, y_max + 1)
-        ]
-        return (x_max - x_min + 1) * (y_max - y_min + 1) - len(exterior_tiles) - len(self.loop[:-1])
+        empty_tiles = [coord for coord in self.map if self.map[coord] == '.']
+        return sum([self.checkInterior(tile) for tile in empty_tiles])
 
     def findLoop(self):
         for loop_direction in self.findNeighbors(self.start):
@@ -106,6 +63,21 @@ class Labyrinth:
                     previous_node = current_node
                     current_node = neighbor
             self.loop = loop
+            self.map = {key: self.map[key] if key in self.loop else '.' for key in self.map}
+            last = tuple(x - y for x, y in zip(self.loop[0], self.loop[-2]))
+            first = tuple(x - y for x, y in zip(self.loop[0], self.loop[1]))
+            if (first, last) in [((1, 0), (0, -1)), ((0, -1), (-1, 0))]:
+                self.map[self.start] = '7'
+            elif (first, last) in [((1, 0), (-1, 0)), ((-1, 0), (1, 0))]:
+                self.map[self.start] = '-'
+            elif (first, last) in [((1, 0), (0, 1)), ((0, 1), (1, 0))]:
+                self.map[self.start] = 'J'
+            elif (first, last) in [((-1, 0), (0, -1)), ((0, -1), (-1, 0))]:
+                self.map[self.start] = 'F'
+            elif (first, last) in [((-1, 0), (0, 1)), ((0, 1), (-1, 0))]:
+                self.map[self.start] = 'L'
+            elif (first, last) in [((0, -1), (0, 1)), ((0, 1), (0, -1))]:
+                self.map[self.start] = '|'
             break
 
 def part_1(labyrinth):
