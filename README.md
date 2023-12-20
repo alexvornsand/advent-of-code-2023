@@ -33,7 +33,7 @@ A place for me to attempt 2023's [Advent of Code](https://adventofcode.com/2023/
 
 [Day 16 (Python)](/solutions/day-16)
 
-<!-- [Day 17 (Python)](/solutions/day-17)
+[Day 17 (Python)](/solutions/day-17)
 
 [Day 18 (Python)](/solutions/day-18)
 
@@ -41,7 +41,7 @@ A place for me to attempt 2023's [Advent of Code](https://adventofcode.com/2023/
 
 [Day 20 (Python)](/solutions/day-20)
 
-[Day 21 (Python)](/solutions/day-21)
+<!-- [Day 21 (Python)](/solutions/day-21)
 
 [Day 22 (Python)](/solutions/day-22)
 
