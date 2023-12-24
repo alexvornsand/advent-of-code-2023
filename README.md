@@ -47,8 +47,8 @@ A place for me to attempt 2023's [Advent of Code](https://adventofcode.com/2023/
 
 [Day 23 (Python)](/solutions/day-23)
 
-<!-- [Day 24 (Python)](/solutions/day-24)
+[Day 24 (Python)](/solutions/day-24)
 
-[Day 25 (Python)](/solutions/day-25)
+<!-- [Day 25 (Python)](/solutions/day-25)
 
 -->
